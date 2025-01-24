@@ -16,6 +16,7 @@
         <form id="emailForm" action="https://formsubmit.co/contact@ataraxycreations.com" method="POST" class="relative w-full max-w-md">
             <input
                 type="email"
+                id="emailInput"
                 name="email"
                 placeholder="Enter your email for updates"
                 required
@@ -35,6 +36,7 @@
                 e.preventDefault(); // Prevent the default form submission behavior
                 const form = e.target;
                 const submitButton = document.getElementById("submitButton");
+                const emailInput = document.getElementById("emailInput");
 
                 fetch(form.action, {
                     method: "POST",
@@ -47,6 +49,7 @@
                         if (response.ok) {
                             submitButton.textContent = "Submitted";
                             submitButton.disabled = true;
+                            emailInput.disabled = true; // Disable the input field
                             form.reset(); // Clear the form
                         } else {
                             alert("Something went wrong. Please try again later.");
