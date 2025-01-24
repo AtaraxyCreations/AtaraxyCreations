@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AtaraxyCreations - Coming Soon</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="/favicon.ico">
 </head>
 <body class="bg-gray-900 text-white">
     <div class="flex items-center justify-center min-h-screen flex-col px-6 text-center">
@@ -13,7 +12,7 @@
         <p class="text-lg mb-6 text-gray-300">Crafting the future of web solutions. We're launching something amazing soon!</p>
 
         <!-- Email Form -->
-        <form id="emailForm" action="https://breezyforms.com/api/submit" method="POST" class="relative w-full max-w-md">
+        <form action="https://formsubmit.co/contact@ataraxycreations.com" method="POST" class="relative w-full max-w-md">
             <input
                 type="email"
                 name="email"
@@ -21,49 +20,13 @@
                 required
                 class="w-full py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-800 text-gray-200 placeholder-gray-400"
             >
-            <input type="hidden" name="to" value="contact@ataraxycreations.com">
             <button
                 type="submit"
-                id="submitButton"
                 class="absolute right-0 top-0 bottom-0 bg-teal-500 text-white px-6 py-3 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300"
             >
                 Notify Me
             </button>
         </form>
-
-        <script>
-            document.getElementById("emailForm").addEventListener("submit", function (e) {
-                e.preventDefault(); // Prevent default form submission
-                const form = e.target;
-                const submitButton = document.getElementById("submitButton");
-                const emailInput = form.querySelector('input[name="email"]');
-
-                // Disable input and button
-                emailInput.disabled = true;
-                submitButton.disabled = true;
-                submitButton.textContent = "Submitting...";
-
-                fetch(form.action, {
-                    method: "POST",
-                    body: new FormData(form),
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        submitButton.textContent = "Submitted Successfully!";
-                    } else {
-                        throw new Error("Submission Failed");
-                    }
-                })
-                .catch(() => {
-                    submitButton.textContent = "Submission Failed";
-                    emailInput.disabled = false; // Re-enable input
-                    submitButton.disabled = false;
-                });
-
-                // Clear the email input
-                emailInput.value = "";
-            });
-        </script>
     </div>
 </body>
 </html>
