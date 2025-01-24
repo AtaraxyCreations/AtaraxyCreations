@@ -12,16 +12,16 @@
         <h1 class="text-4xl font-bold mb-4 text-teal-400">AtaraxyCreations</h1>
         <p class="text-lg mb-6 text-gray-300">Crafting the future of web solutions. We're launching something amazing soon!</p>
 
-        <!-- Form -->
-        <form id="emailForm" action="https://formsubmit.co/contact@ataraxycreations.com" method="POST" class="relative w-full max-w-md">
+        <!-- Email Form -->
+        <form id="emailForm" action="https://breezyforms.com/api/submit" method="POST" class="relative w-full max-w-md">
             <input
                 type="email"
-                id="emailInput"
                 name="email"
                 placeholder="Enter your email for updates"
                 required
                 class="w-full py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-800 text-gray-200 placeholder-gray-400"
             >
+            <input type="hidden" name="to" value="contact@ataraxycreations.com">
             <button
                 type="submit"
                 id="submitButton"
@@ -33,31 +33,35 @@
 
         <script>
             document.getElementById("emailForm").addEventListener("submit", function (e) {
-                e.preventDefault(); // Prevent the default form submission behavior
+                e.preventDefault(); // Prevent default form submission
                 const form = e.target;
                 const submitButton = document.getElementById("submitButton");
-                const emailInput = document.getElementById("emailInput");
+                const emailInput = form.querySelector('input[name="email"]');
+
+                // Disable input and button
+                emailInput.disabled = true;
+                submitButton.disabled = true;
+                submitButton.textContent = "Submitting...";
 
                 fetch(form.action, {
                     method: "POST",
                     body: new FormData(form),
-                    headers: {
-                        Accept: "application/json",
-                    },
                 })
-                    .then((response) => {
-                        if (response.ok) {
-                            submitButton.textContent = "Submitted";
-                            submitButton.disabled = true;
-                            emailInput.disabled = true; // Disable the input field
-                            form.reset(); // Clear the form
-                        } else {
-                            alert("Something went wrong. Please try again later.");
-                        }
-                    })
-                    .catch(() => {
-                        alert("Failed to submit the form. Please check your internet connection.");
-                    });
+                .then((response) => {
+                    if (response.ok) {
+                        submitButton.textContent = "Submitted Successfully!";
+                    } else {
+                        throw new Error("Submission Failed");
+                    }
+                })
+                .catch(() => {
+                    submitButton.textContent = "Submission Failed";
+                    emailInput.disabled = false; // Re-enable input
+                    submitButton.disabled = false;
+                });
+
+                // Clear the email input
+                emailInput.value = "";
             });
         </script>
     </div>
